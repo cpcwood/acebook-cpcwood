@@ -1,8 +1,8 @@
 class UsersController < ApplicationController
   skip_before_action :require_login
 
-  def index
-    @users = User.all
+  def show
+    @users = User.where.not(id: 0).select('username, id')
     respond_to do |format|
       format.json do
         render json: @users.to_json
