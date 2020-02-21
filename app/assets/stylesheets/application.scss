@@ -143,9 +143,15 @@ h2 {
   position: fixed;
   right: 0;
   bottom: 0;
-  height: 50px;
   background-color: blue;
-  text-align: center;
   display: flex;
   flex-direction: row-reverse;
+}
+
+.start-chat-container, .conversation-container {
+  position: relative;
+  bottom: 0px;
+  float: right;
+  display: flex;
+  flex-direction: column-reverse;
 }
