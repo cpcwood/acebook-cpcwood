@@ -28,8 +28,3 @@
 # Ignore coverage documentation
 coverage/*
 coverage/**
-
-# Ignore local storage
-storage/*
-storage/**
-public/assets/*
