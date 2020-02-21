@@ -57,14 +57,14 @@ window.addEventListener('load', function() {
     // Create click hander
     startChatClickHandler = function () {
       httpGet('/users/index.json', function(data) {
-        jsonData = JSON.parse(data)
-        chatList = document.querySelector('.chat-list')
-        chatList.innerHTML = ''
+        var jsonData = JSON.parse(data)
+        var chatList = document.querySelector('.chat-list')
+        chatList.innerHTML = '';
         jsonData.forEach(function(message) {
           chatBtnHTML = `<div class='open-convo-container'>
             <button class='open-convo-btn' data_user_id='${message['id']}' data_username='${message['username']}'>${message['username']}</button>
           </div>
-          `
+          `;
           chatList.insertAdjacentHTML('beforeend', chatBtnHTML)
         })
 
