@@ -86,4 +86,5 @@ group :production do
   gem 'sprockets', github: 'rails/sprockets', branch: 'master'
   gem 'babel-transpiler'
   gem 'turbolinks'
+  gem 'redis'
 end
