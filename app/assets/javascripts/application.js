@@ -61,8 +61,7 @@ window.addEventListener('load', function() {
         chatList = document.querySelector('.chat-list')
         chatList.innerHTML = ''
         jsonData.forEach(function(message) {
-          chatBtnHTML = `
-          <div class='open-convo-container'>
+          chatBtnHTML = `<div class='open-convo-container'>
             <button class='open-convo-btn' data_user_id='${message['id']}' data_username='${message['username']}'>${message['username']}</button>
           </div>
           `
@@ -77,8 +76,7 @@ window.addEventListener('load', function() {
           var chatFooter = this.parentNode.parentNode.parentNode.parentNode.parentNode
 
           // Create conversation div
-          convoHTML = `
-            <div class='conversation-container' id='${username}'>
+          convoHTML = `<div class='conversation-container' id='${username}'>
               <button class='conversation-btn'>${username}</button>
               <div class='conversation'> 
                 <div class='actions-container'>
@@ -130,8 +128,7 @@ window.addEventListener('load', function() {
 
             messageData.forEach(function(message) {
               if (message['id'] == 0) {
-                messageHTML = `
-                <div class='no-message message'>
+                messageHTML = `<div class='no-message message'>
                   ${message['message_content']}
                 </div>
                 `
@@ -144,8 +141,7 @@ window.addEventListener('load', function() {
                   var messageClass = 'message-sent'
                 }
                 var dateStr = (new Date(message['created_at'])).toUTCString()
-                messageHTML = `
-                  <div class='${messageClass} message'>
+                messageHTML = `<div class='${messageClass} message'>
                     <div class='message-time'> ${dateStr} </div>
                     <div class='message-content'> ${message['message_content']} </div>
                   </div>
@@ -165,8 +161,7 @@ window.addEventListener('load', function() {
                   var messageClass = 'message-sent'
                 }
                 var dateStr = (new Date(data['created_at'])).toUTCString()
-                messageHTML = `
-                  <div class='${messageClass} message'>
+                messageHTML = `<div class='${messageClass} message'>
                     <div class='message-time'> ${dateStr} </div>
                     <div class='message-content'> ${data['content']} </div>
                   </div>
