@@ -78,6 +78,7 @@ Rails.application.configure do
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
+  
 
   # Makes active storage store files locally
   config.active_storage.service = :local
@@ -94,4 +95,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  config.web_socket_server_url = "wss://dosdosdesperadosdynamicos.herokuapp.com/cable" 
+  config.action_cable.allowed_request_origins = ['https://dosdosdesperadosdynamicos.herokuapp.com', 'http://dosdosdesperadosdynamicos.herokuapp.com']
+
 end
