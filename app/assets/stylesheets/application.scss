@@ -138,3 +138,14 @@ h2 {
   position: absolute;
   left: 38%
 }
+
+.chat-footer-container {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+  background-color: blue;
+  text-align: center;
+  display: flex;
+  flex-direction: row-reverse;
+}
