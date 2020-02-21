@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   end
 
   get 'conversation', to: 'conversations#show'
+  post 'message', to: 'messages#create'
 
   resources :posts
 

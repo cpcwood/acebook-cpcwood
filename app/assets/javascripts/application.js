@@ -46,6 +46,7 @@ window.addEventListener('load', function() {
     xmlHttp.open("GET", theUrl, true)
     xmlHttp.send(null)
   }
+
   // ===========
 
 
@@ -116,7 +117,8 @@ window.addEventListener('load', function() {
           httpGet(`/conversation?to_user_id=${userId}`, function(data) {
             jsonData = JSON.parse(data)
             console.log(jsonData)
-            jsonData.forEach(function(message) {
+            var messageData = JSON.parse(jsonData[1])
+            messageData.forEach(function(message) {
               if (message['id'] == 0) {
                 messageHTML = `
                 <div class='no-message message'>
@@ -139,12 +141,42 @@ window.addEventListener('load', function() {
                   </div>
                 `
               }
-              chatContainer = document.querySelector(`#${username}`)
+              var chatContainer = document.querySelector(`#${username}`)
+              var sendBtn = chatContainer.querySelector('.send-message')
+              var convoId = jsonData[0]['convo_id']
+              sendBtn.setAttribute('data_convo_id', convoId);
               messagesContainer = chatContainer.querySelector('.messages-container')
               messagesContainer.insertAdjacentHTML('beforeend', messageHTML)
               messagesContainer.scrollTop = messagesContainer.scrollHeight;
             })
           })
+
+          // Event listener for send message
+          var sendMessage = function(){
+            var toUser = this.getAttribute('data_to_user_id')
+            var convoId = this.getAttribute('data_convo_id')
+            var actionsContainer = this.parentNode
+            var textbox = actionsContainer.querySelector('.message-text')
+            var text = textbox.value
+            textbox.value = ''
+            var messageData = {'message': {'convo_id': convoId, 'to_user': toUser, 'message-content': text}}
+            $.ajax({ url: '/message',
+              type: 'POST',
+              beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+              data: JSON.stringify(messageData),
+              success: function(response) {
+                console.log('yay');
+              }
+            });
+          }
+
+          var sendMessageObjs = document.getElementsByClassName("send-message")
+          for (var i = 0; i < sendMessageObjs.length; i++) {
+              sendMessageObjs[i].addEventListener('click', sendMessage, false)
+          }
+
+          console.log($('meta[name="csrf-token"]'))
+
 
 
           // End of click on start convo ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^

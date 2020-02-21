@@ -13,9 +13,9 @@ class ConversationsController < ApplicationController
     respond_to do |format|
       format.json do
         if @messages.empty?
-          render json: [{id: 0, message_content: "Theres no messages here, say hello to your friend!",}].to_json
+          render json: [{convo_id: @conversation.id}, [{id: 0, message_content: "Theres no messages here, say hello to your friend!"}]].to_json
         else
-          render json: @messages.to_json
+          render json: [{convo_id: @conversation.id}, @messages.to_json]
         end
       end
     end
