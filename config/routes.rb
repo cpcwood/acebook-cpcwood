@@ -14,6 +14,8 @@ Rails.application.routes.draw do
     resources :posts
   end
 
+  get 'users/index', to: 'users#index'
+
   resources :posts
 
   root 'homepage#index'
