@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
   get '404', to: 'errors#show', via: :all
+  get '500', to: 'errors#show', via: :all
 
   get 'homepage/index'
 
@@ -13,6 +15,9 @@ Rails.application.routes.draw do
   resources :users do
     resources :posts
   end
+
+  get 'conversation', to: 'conversations#show'
+  post 'message', to: 'messages#create'
 
   resources :posts
 

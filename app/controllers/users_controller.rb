@@ -1,6 +1,15 @@
 class UsersController < ApplicationController
   skip_before_action :require_login
 
+  def show
+    @users = User.where.not(id: 0).select('username, id')
+    respond_to do |format|
+      format.json do
+        render json: @users.to_json
+      end
+    end
+  end
+
   def new
     @user = User.new
     redirect_to(user_posts_path(user_id: session[:user_id]), notice: 'You cannot signup while logged in') if session[:user_id]
