@@ -155,3 +155,20 @@ h2 {
   display: flex;
   flex-direction: column-reverse;
 }
+
+.conversation-container {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.conversation {
+  display: flex;
+  flex-direction: column-reverse;
+  height: 200px;
+}
+
+.actions-container {
+  display: flex;
+  flex-direction: row;
+  height: 50px;
+}

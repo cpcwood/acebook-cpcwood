@@ -56,17 +56,55 @@ window.addEventListener('load', function() {
     startChatClickHandler = function () {
       httpGet('/users/index.json', function(data) {
         jsonData = JSON.parse(data)
-        console.log(jsonData)
         chatList = document.querySelector('.chat-list')
         chatList.innerHTML = ''
         jsonData.forEach(function(message) {
           chatBtnHTML = `
           <div class='open-convo-container'>
-            <button class='open-convo-btn' data_user='${message['id']}'>${message['username']}</button>
+            <button class='open-convo-btn' data_user_id='${message['id']}' data_username='${message['username']}'>${message['username']}</button>
           </div>
           `
           chatList.insertAdjacentHTML('beforeend', chatBtnHTML)
         })
+
+        // event listner for clicking open conversation
+        openConvoClickHandler = function() {
+          // Get required data for conversation
+          var userId = this.getAttribute('data_user_id')
+          var username = this.getAttribute('data_username')
+          var chatFooter = this.parentNode.parentNode.parentNode.parentNode.parentNode
+          console.log(username)
+          console.log(userId)
+          console.log(this)
+          console.log(chatFooter)
+
+
+          // Create conversation div
+          convoHTML = `
+            <div class='conversation-container'>
+              <button class='conversation-btn'>${username}</button>
+              <div class='conversation'> 
+                <div class='actions-container'>
+                  <textarea class='message-text'></textarea>
+                  <button class='send-message'>Send Message</button>
+                </div>
+                <div class='messages-container'>
+
+                </div>
+              </div>
+            </div>
+          `
+          chatFooter.insertAdjacentHTML('beforeend', convoHTML)
+
+        }
+
+        openConvoObjs = document.getElementsByClassName('open-convo-btn')
+        console.log(openConvoObjs)
+        for (var i = 0; i < openConvoObjs.length; i++) {
+          openConvoObjs[i].addEventListener('click', openConvoClickHandler)
+        }
+
+        // End of ajax on users ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
       })
 
       // Show chat list container
@@ -84,8 +122,12 @@ window.addEventListener('load', function() {
       }
       this.addEventListener('click', hideChatList)
 
-    }
 
+      
+    }
     startChatBtn.addEventListener('click', startChatClickHandler)
   }
+
+
+
 })
