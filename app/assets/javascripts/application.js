@@ -14,6 +14,7 @@
 //= require_tree .
 //= require jquery
 //= require bootstrap-sprockets
+//= require_tree ./channels
 
 window.addEventListener('load', function() {
   // =========================
@@ -118,6 +119,15 @@ window.addEventListener('load', function() {
             jsonData = JSON.parse(data)
             console.log(jsonData)
             var messageData = JSON.parse(jsonData[1])
+            var convoId = jsonData[0]['convo_id']
+            var chatContainer = document.querySelector(`#${username}`)
+            console.log('test')
+            console.log(chatContainer)
+            var sendBtn = chatContainer.querySelector('.send-message')
+            console.log(sendBtn)
+            sendBtn.setAttribute('data_convo_id', convoId)
+            var messagesContainer = chatContainer.querySelector('.messages-container')
+
             messageData.forEach(function(message) {
               if (message['id'] == 0) {
                 messageHTML = `
@@ -141,14 +151,33 @@ window.addEventListener('load', function() {
                   </div>
                 `
               }
-              var chatContainer = document.querySelector(`#${username}`)
-              var sendBtn = chatContainer.querySelector('.send-message')
-              var convoId = jsonData[0]['convo_id']
-              sendBtn.setAttribute('data_convo_id', convoId);
-              messagesContainer = chatContainer.querySelector('.messages-container')
               messagesContainer.insertAdjacentHTML('beforeend', messageHTML)
               messagesContainer.scrollTop = messagesContainer.scrollHeight;
             })
+            // Subscribe to cable channel
+
+            var sub = App.cable.subscriptions.create({ channel: "MessagesChannel", convo_id: convoId }, {
+              received(data) {
+                if (data['from_user'] == userId) {
+                  var messageClass = 'message-recieved'
+                }
+                else {
+                  var messageClass = 'message-sent'
+                }
+                var dateStr = (new Date(data['created_at'])).toUTCString()
+                messageHTML = `
+                  <div class='${messageClass} message'>
+                    <div class='message-time'> ${dateStr} </div>
+                    <div class='message-content'> ${data['content']} </div>
+                  </div>
+                `
+                messagesContainer.insertAdjacentHTML('beforeend', messageHTML)
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+              }
+            })
+            
+            convoSubs.push(sub)
+
           })
 
           // Event listener for send message
@@ -175,7 +204,7 @@ window.addEventListener('load', function() {
               sendMessageObjs[i].addEventListener('click', sendMessage, false)
           }
 
-          console.log($('meta[name="csrf-token"]'))
+          
 
 
 

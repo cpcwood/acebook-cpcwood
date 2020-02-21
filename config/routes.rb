@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
   get '404', to: 'errors#show', via: :all
   get '500', to: 'errors#show', via: :all
 
