@@ -164,11 +164,54 @@ h2 {
 .conversation {
   display: flex;
   flex-direction: column-reverse;
-  height: 200px;
+  height: 300px;
+  border: black;
 }
 
 .actions-container {
   display: flex;
   flex-direction: row;
   height: 50px;
+}
+
+.messages-container {
+  min-height: 250px;
+  min-width: 200px;
+  background: lightgrey;
+  overflow: scroll;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  border: black 2px;
+  border-radius: 2px;
+  margin-bottom: 4px;;
+}
+
+.message-time {
+  font-size: smaller;
+}
+
+// .message-content{
+
+// }
+
+.message-recieved {
+  background-color: cornflowerblue;
+  width: 70%;
+  float: left;
+}
+
+.message-recieved {
+  background-color: lightgreen;
+  width: 70%;
+  float: right;
+}
+
+.no-message {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  background: white;
 }

@@ -76,12 +76,12 @@ window.addEventListener('load', function() {
 
           // Create conversation div
           convoHTML = `
-            <div class='conversation-container'>
+            <div class='conversation-container' id='${username}'>
               <button class='conversation-btn'>${username}</button>
               <div class='conversation'> 
                 <div class='actions-container'>
                   <textarea class='message-text'></textarea>
-                  <button class='send-message'>Send Message</button>
+                  <button class='send-message' data_to_user_id='${userId}'>Send Message</button>
                 </div>
                 <div class='messages-container'>
 
@@ -99,7 +99,6 @@ window.addEventListener('load', function() {
             this.removeEventListener('click', showConvo)
             this.addEventListener('click', hideConvo)
           }
-
           hideConvo = function() {
             var chatContainer = this.parentNode
             var conversation = chatContainer.querySelector('.conversation')
@@ -109,10 +108,46 @@ window.addEventListener('load', function() {
           }
 
           conversationBtns = document.getElementsByClassName('conversation-btn')
-          console.log(conversationBtns)
           for (var i = 0; i < conversationBtns.length; i++) {
             conversationBtns[i].addEventListener('click', hideConvo)
           }
+
+          // Ajax for last 30 messages
+          httpGet(`/conversation?to_user_id=${userId}`, function(data) {
+            jsonData = JSON.parse(data)
+            console.log(jsonData)
+            jsonData.forEach(function(message) {
+              if (message['id'] == 0) {
+                messageHTML = `
+                <div class='no-message message'>
+                  ${message['message_content']}
+                </div>
+                `
+              }
+              else {
+                if (message['sender_id_fk'] == userId) {
+                  var messageClass = 'message-recieved'
+                }
+                else {
+                  var messageClass = 'message-sent'
+                }
+                var dateStr = (new Date(message['created_at'])).toUTCString()
+                messageHTML = `
+                  <div class='${messageClass} message'>
+                    <div class='message-time'> ${dateStr} </div>
+                    <div class='message-content'> ${message['message_content']} </div>
+                  </div>
+                `
+              }
+              chatContainer = document.querySelector(`#${username}`)
+              messagesContainer = chatContainer.querySelector('.messages-container')
+              messagesContainer.insertAdjacentHTML('beforeend', messageHTML)
+              messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            })
+          })
+
+
+          // End of click on start convo ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         }
 
         openConvoObjs = document.getElementsByClassName('open-convo-btn')
