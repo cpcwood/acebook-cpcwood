@@ -154,11 +154,11 @@ h2 {
   float: right;
   display: flex;
   flex-direction: column-reverse;
+  width: 200px;
 }
 
-.conversation-container {
-  display: flex;
-  flex-direction: column-reverse;
+.open-chat, .open-convo-btn {
+  width: 200px;
 }
 
 .conversation {

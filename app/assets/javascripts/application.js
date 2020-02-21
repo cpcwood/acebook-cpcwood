@@ -73,11 +73,6 @@ window.addEventListener('load', function() {
           var userId = this.getAttribute('data_user_id')
           var username = this.getAttribute('data_username')
           var chatFooter = this.parentNode.parentNode.parentNode.parentNode.parentNode
-          console.log(username)
-          console.log(userId)
-          console.log(this)
-          console.log(chatFooter)
-
 
           // Create conversation div
           convoHTML = `
@@ -95,11 +90,32 @@ window.addEventListener('load', function() {
             </div>
           `
           chatFooter.insertAdjacentHTML('beforeend', convoHTML)
+          
+          // Add hide/show event listener to convobutton
+          showConvo = function() {
+            var chatContainer = this.parentNode
+            var conversation = chatContainer.querySelector('.conversation')
+            conversation.style.display = 'flex'
+            this.removeEventListener('click', showConvo)
+            this.addEventListener('click', hideConvo)
+          }
 
+          hideConvo = function() {
+            var chatContainer = this.parentNode
+            var conversation = chatContainer.querySelector('.conversation')
+            conversation.style.display = 'none'
+            this.removeEventListener('click', hideConvo)
+            this.addEventListener('click', showConvo)
+          }
+
+          conversationBtns = document.getElementsByClassName('conversation-btn')
+          console.log(conversationBtns)
+          for (var i = 0; i < conversationBtns.length; i++) {
+            conversationBtns[i].addEventListener('click', hideConvo)
+          }
         }
 
         openConvoObjs = document.getElementsByClassName('open-convo-btn')
-        console.log(openConvoObjs)
         for (var i = 0; i < openConvoObjs.length; i++) {
           openConvoObjs[i].addEventListener('click', openConvoClickHandler)
         }
