@@ -28,3 +28,7 @@
 # Ignore coverage documentation
 coverage/*
 coverage/**
+
+# Ignore complied front-end assets
+public/*
+public/**

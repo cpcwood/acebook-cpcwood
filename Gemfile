@@ -38,8 +38,6 @@ gem 'figaro'
 # Rake for raking
 gem 'rake'
 
-gem 'aws-sdk-s3', require: false
-
 # =======================================================
 
 group :test do
@@ -58,8 +56,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
+  gem 'capybara'
   gem 'webdrivers'
   gem 'rspec-rails', '~> 3.5'
 
@@ -86,5 +83,7 @@ group :production do
   gem 'sprockets', github: 'rails/sprockets', branch: 'master'
   gem 'babel-transpiler'
   gem 'turbolinks'
+
+  # Message broker
   gem 'redis'
 end

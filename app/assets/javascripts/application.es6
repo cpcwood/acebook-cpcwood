@@ -82,7 +82,7 @@ window.addEventListener('load', function() {
               <button class='conversation-btn'>${username}</button>
               <div class='conversation'> 
                 <div class='actions-container'>
-                  <textarea class='message-text'></textarea>
+                  <textarea class='message-text' id='message-text-${username}'></textarea>
                   <button class='send-message' data_to_user_id='${userId}'>Send Message</button>
                 </div>
                 <div class='messages-container'>
@@ -117,14 +117,10 @@ window.addEventListener('load', function() {
           // Ajax for last 30 messages
           httpGet(`/conversation?to_user_id=${userId}`, function(data) {
             var jsonData = JSON.parse(data)
-            console.log(jsonData)
             var messageData = JSON.parse(jsonData[1])
             var convoId = jsonData[0]['convo_id']
             var chatContainer = document.querySelector(`#${username}`)
-            console.log('test')
-            console.log(chatContainer)
             var sendBtn = chatContainer.querySelector('.send-message')
-            console.log(sendBtn)
             sendBtn.setAttribute('data_convo_id', convoId)
             var messagesContainer = chatContainer.querySelector('.messages-container')
 
@@ -189,10 +185,7 @@ window.addEventListener('load', function() {
             $.ajax({ url: '/message',
               type: 'POST',
               beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-              data: JSON.stringify(messageData),
-              success: function(response) {
-                console.log('yay');
-              }
+              data: JSON.stringify(messageData)
             });
           }
 

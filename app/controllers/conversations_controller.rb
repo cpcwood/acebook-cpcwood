@@ -9,16 +9,11 @@ class ConversationsController < ApplicationController
     if @conversation == nil
       @conversation = Conversation.create(user_1_id_fk: sender_id, user_2_id_fk: reciever_id)
     end
-
-    p @conversation
     @messages = @conversation.messages.limit(30)
+    @messages = (@messages.empty? ? [{id: 0, message_content: "Theres no messages here, say hello to your friend!"}] : @messages)
     respond_to do |format|
       format.json do
-        if @messages.empty?
-          render json: [{convo_id: @conversation.id}, [{id: 0, message_content: "Theres no messages here, say hello to your friend!"}].to_json]
-        else
-          render json: [{convo_id: @conversation.id}, @messages.to_json]
-        end
+        render json: [{convo_id: @conversation.id}, @messages.to_json]
       end
     end
   end
