@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: redis://h:p8f2cf2871fef0cafbc28a9e1ead0fda9b2732717013d616ec67e3c9e4a9720b3@ec2-52-30-26-138.eu-west-1.compute.amazonaws.com:30339
+  url: ENV["REDIS_URL"]
   channel_prefix: acebook_production
