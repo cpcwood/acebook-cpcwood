@@ -3,6 +3,7 @@
   <head>
     <title>Acebook</title>
     <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
@@ -13,6 +14,9 @@
   <body>
     <%= render 'layouts/navigation'%>
     <%= audio_tag("log_out.mp3", class: "logoutAudio", preload: "true") %>
+    <% if session[:user_id] %>
+      <%= render 'layouts/chat'%>
+    <% end %>
     <%= yield %>
   </body>
 </html>

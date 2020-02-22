@@ -38,8 +38,6 @@ gem 'figaro'
 # Rake for raking
 gem 'rake'
 
-gem 'aws-sdk-s3', require: false
-
 # =======================================================
 
 group :test do
@@ -58,8 +56,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '~> 2.13'
-  gem 'selenium-webdriver'
+  gem 'capybara'
   gem 'webdrivers'
   gem 'rspec-rails', '~> 3.5'
 
@@ -82,4 +79,11 @@ group :production do
   # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
   gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
   gem 'rails_12factor'
+  gem 'sprockets-rails', github: 'rails/sprockets-rails', branch: 'master'
+  gem 'sprockets', github: 'rails/sprockets', branch: 'master'
+  gem 'babel-transpiler'
+  gem 'turbolinks'
+
+  # Message broker
+  gem 'redis'
 end

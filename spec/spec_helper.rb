@@ -30,6 +30,7 @@ RSpec.configure do |config|
   end
 
   config.before(:each) do
+    # data is not saved into real Redis but you still need to clear it
     DatabaseCleaner.start
   end
 

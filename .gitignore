@@ -29,7 +29,6 @@
 coverage/*
 coverage/**
 
-# Ignore local storage
-storage/*
-storage/**
-public/assets/*
+# Ignore complied front-end assets
+public/*
+public/**

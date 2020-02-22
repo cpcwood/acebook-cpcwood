@@ -1,3 +1,22 @@
+GIT
+  remote: https://github.com/rails/sprockets-rails.git
+  revision: c269f5e01fdffa5c41350e855183d94ff33d318a
+  branch: master
+  specs:
+    sprockets-rails (3.2.1)
+      actionpack (>= 4.0)
+      activesupport (>= 4.0)
+      sprockets (>= 3.0.0)
+
+GIT
+  remote: https://github.com/rails/sprockets.git
+  revision: 9909da64595ddcfa1e7ee40ed1d99738961288ec
+  branch: master
+  specs:
+    sprockets (4.0.0)
+      concurrent-ruby (~> 1.0)
+      rack (> 1, < 3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -48,22 +67,10 @@ GEM
     ast (2.4.0)
     autoprefixer-rails (9.7.4)
       execjs
-    aws-eventstream (1.0.3)
-    aws-partitions (1.275.0)
-    aws-sdk-core (3.90.1)
-      aws-eventstream (~> 1.0, >= 1.0.2)
-      aws-partitions (~> 1, >= 1.239.0)
-      aws-sigv4 (~> 1.1)
-      jmespath (~> 1.0)
-    aws-sdk-kms (1.29.0)
-      aws-sdk-core (~> 3, >= 3.71.0)
-      aws-sigv4 (~> 1.1)
-    aws-sdk-s3 (1.60.2)
-      aws-sdk-core (~> 3, >= 3.83.0)
-      aws-sdk-kms (~> 1)
-      aws-sigv4 (~> 1.1)
-    aws-sigv4 (1.1.0)
-      aws-eventstream (~> 1.0, >= 1.0.2)
+    babel-source (5.8.35)
+    babel-transpiler (0.7.0)
+      babel-source (>= 4.0, < 6)
+      execjs (~> 2.0)
     backports (3.16.1)
     bcrypt (3.1.13)
     bindex (0.8.1)
@@ -114,7 +121,6 @@ GEM
     jaro_winkler (1.5.4)
     jbuilder (2.10.0)
       activesupport (>= 5.0.0)
-    jmespath (1.4.0)
     jquery-rails (4.3.5)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -190,6 +196,7 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
+    redis (4.1.3)
     repo-small-badge (0.2.7)
       victor (~> 0.2.8)
     rexml (3.2.4)
@@ -256,13 +263,6 @@ GEM
       spring (>= 0.9.1)
     spring-commands-rubocop (0.2.0)
       spring (>= 1.0, < 3.0)
-    sprockets (4.0.0)
-      concurrent-ruby (~> 1.0)
-      rack (> 1, < 3)
-    sprockets-rails (3.2.1)
-      actionpack (>= 4.0)
-      activesupport (>= 4.0)
-      sprockets (>= 3.0.0)
     terminal-table (1.8.0)
       unicode-display_width (~> 1.1, >= 1.1.1)
     thor (0.20.3)
@@ -277,6 +277,9 @@ GEM
       launchy (~> 2.1)
       pusher-client (~> 0.4)
       typhoeus (~> 0.6, >= 0.6.8)
+    turbolinks (5.2.1)
+      turbolinks-source (~> 5.2)
+    turbolinks-source (5.2.0)
     typhoeus (0.8.0)
       ethon (>= 0.8.0)
     tzinfo (1.2.6)
@@ -305,11 +308,11 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  aws-sdk-s3
+  babel-transpiler
   bcrypt
   bootstrap-sass (~> 3.3.6)
   byebug
-  capybara (~> 2.13)
+  capybara
   database_cleaner-active_record
   figaro
   jbuilder (~> 2.5)
@@ -320,18 +323,21 @@ DEPENDENCIES
   rails (~> 5.2.4.1)
   rails_12factor
   rake
+  redis
   rspec-rails (~> 3.5)
   rubocop
   rubocop-rails
   sassc-rails
-  selenium-webdriver
   simplecov
   simplecov-console
   simplecov-small-badge
   spring
   spring-commands-rspec
   spring-commands-rubocop
+  sprockets!
+  sprockets-rails!
   travis
+  turbolinks
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
