@@ -41,9 +41,9 @@ Github Repo - https://github.com/cpcwood/acebook-dosdosdesperadosdynamicos
 
 ## Contact 
 
-Team Members 
+#### Team Members 
 
-Tom W - https://github.com/Walker-TW
-Chris - https://github.com/cpcwood
-Tom R - https://github.com/ratcliffetj
-Imraan A - https://github.com/Immers23
+* Tom W - https://github.com/Walker-TW
+* Chris - https://github.com/cpcwood
+* Tom R - https://github.com/ratcliffetj
+* Imraan A - https://github.com/Immers23
