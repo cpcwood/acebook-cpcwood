@@ -1,4 +1,4 @@
-The individual of dosdosdynamicosdesperados are pleased to present
+The individuals of dosdosdynamicosdesperados are pleased to present
 
 <br />
 <p>
