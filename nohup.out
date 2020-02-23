@@ -1,0 +1,7 @@
+58337:C 22 Feb 2020 22:13:21.253 # oO0OoO0OoO0Oo Redis is starting oO0OoO0OoO0Oo
+58337:C 22 Feb 2020 22:13:21.253 # Redis version=5.0.7, bits=64, commit=00000000, modified=0, pid=58337, just started
+58337:C 22 Feb 2020 22:13:21.253 # Warning: no config file specified, using the default config. In order to specify a config file use redis-server /path/to/redis.conf
+58337:M 22 Feb 2020 22:13:21.255 * Increased maximum number of open files to 10032 (it was originally set to 256).
+58337:M 22 Feb 2020 22:13:21.256 * Running mode=standalone, port=6379.
+58337:M 22 Feb 2020 22:13:21.256 # Server initialized
+58337:M 22 Feb 2020 22:13:21.256 * Ready to accept connections

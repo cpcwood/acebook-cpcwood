@@ -1,63 +1,54 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, or any plugin's
-// vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file. JavaScript code in this file should be added after the last require_* statement.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
-//= require rails-ujs
+// app/assets/javascripts/channels/chat.js
+
+//= require cable
+//= require_self
 //= require_tree .
-//= require jquery
-//= require bootstrap-sprockets
-//= require_tree ./channels
+
+this.App = {};
+
+App.cable = ActionCable.createConsumer(); 
+
+convoSubs = {}
+
+window.addEventListener("beforeunload", function(e){
+  convoSubs.values.forEach(function(sub) {
+    sub.unsubscribe()
+  })
+}, false);
+
 
 window.addEventListener('load', function() {
-  // =========================
-  // Logout audio
-  // =========================
-  logoutAudio = document.querySelector('.logoutAudio')
-  clickHandler = function(event) {
-    event.preventDefault()
-    self = this
-    logoutAudio.addEventListener('ended', function() {
-      self.removeEventListener('click', clickHandler)
-      self.click()
-    })
-    logoutAudio.currentTime = 0
-    logoutAudio.play()
-  }
-  document.querySelector('#logoutBtn').addEventListener('click', clickHandler)
-
-
 
   // =========================
   // Chat functionality
   // =========================
-
-  // xmlGET
-  var httpGet = function(theUrl, callback) {
-    var xmlHttp = new XMLHttpRequest()
-    xmlHttp.onreadystatechange = function() {
-      if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-        callback(xmlHttp.responseText)
-    }
-    xmlHttp.open("GET", theUrl, true)
-    xmlHttp.send(null)
-  }
-
-  // ===========
-
+  // - still requires OOD
 
   // Chat button
   startChatBtn = document.querySelector('.open-chat')
   if (startChatBtn) {
     // Create click hander
     startChatClickHandler = function () {
+
+      // Add event delegation to hide show conversations upon click
+      var conversationsContainer = document.querySelector('.conversations_container')
+
+      conversationsContainer.addEventListener('click', function(e) {
+        var toggleVisible = function(item) {
+          if (item.style.display == 'none') {
+            item.style.display = 'flex'
+          }
+          else {
+            item.style.display = 'none'
+          }
+        }
+        if(e.target && e.target.matches("button.conversation-btn")) {
+          var conversationContainer = e.target.parentNode
+          var conversation = conversationContainer.querySelector('.conversation')
+          toggleVisible(conversation)
+        }
+      })
+
       httpGet('/users/index.json', function(data) {
         var jsonData = JSON.parse(data)
         var chatList = document.querySelector('.chat-list')
@@ -75,10 +66,12 @@ window.addEventListener('load', function() {
           // Get required data for conversation
           var userId = this.getAttribute('data_user_id')
           var username = this.getAttribute('data_username')
-          var chatFooter = this.parentNode.parentNode.parentNode.parentNode.parentNode
+          var chatFooter = document.querySelector('.chat-footer-container')
+          var chatsContainer = document.querySelector('.chats-container')
 
-          // Create conversation div
-          var convoHTML = `<div class='conversation-container' id='${username}'>
+          // Create conversation div - change this to be real divs the apply event listeners to those inserted
+          var convoHTML = `
+            <div class='conversation-container' id='${username}'>
               <button class='conversation-btn'>${username}</button>
               <div class='conversation'> 
                 <div class='actions-container'>
@@ -91,37 +84,30 @@ window.addEventListener('load', function() {
               </div>
             </div>
           `
-          chatFooter.insertAdjacentHTML('beforeend', convoHTML)
+          conversationsContainer.insertAdjacentHTML('beforeend', convoHTML)
           
-          // Add hide/show event listener to convobutton
-          showConvo = function() {
-            var chatContainer = this.parentNode
-            var conversation = chatContainer.querySelector('.conversation')
-            conversation.style.display = 'flex'
-            this.removeEventListener('click', showConvo)
-            this.addEventListener('click', hideConvo)
-          }
-          hideConvo = function() {
-            var chatContainer = this.parentNode
-            var conversation = chatContainer.querySelector('.conversation')
-            conversation.style.display = 'none'
-            this.removeEventListener('click', hideConvo)
-            this.addEventListener('click', showConvo)
-          }
+          
 
-          conversationBtns = document.getElementsByClassName('conversation-btn')
-          for (var i = 0; i < conversationBtns.length; i++) {
-            conversationBtns[i].addEventListener('click', hideConvo)
-          }
+          // conversationBtns = document.getElementsByClassName('conversation-btn')
+          // for (var i = 0; i < conversationBtns.length; i++) {
+          //   conversationBtns[i].addEventListener('click', hideConvo)
+          // }
+          console.log('before get')
+          var chatContainer = document.querySelector(`#${username}`)
+          console.log(chatContainer)
 
           // Ajax for last 30 messages
-          httpGet(`/conversation?to_user_id=${userId}`, function(data) {
+          httpGet(`/conversation/${userId}`, function(data) {
+            console.log('after get')
             var jsonData = JSON.parse(data)
-            var messageData = JSON.parse(jsonData[1])
+            console.log(jsonData)
+            var messageData = jsonData[1]
             var convoId = jsonData[0]['convo_id']
             var chatContainer = document.querySelector(`#${username}`)
             var sendBtn = chatContainer.querySelector('.send-message')
             sendBtn.setAttribute('data_convo_id', convoId)
+            console.log(sendBtn)
+            
             var messagesContainer = chatContainer.querySelector('.messages-container')
 
             messageData.forEach(function(message) {
@@ -169,8 +155,8 @@ window.addEventListener('load', function() {
               }
             })
             
-            convoSubs.push(sub)
-
+            convoSubs[username] = sub
+            // End of get for last 30 messages ^^^^^^^^^^^^^^^^^^
           })
 
           // Event listener for send message
@@ -194,9 +180,20 @@ window.addEventListener('load', function() {
               sendMessageObjs[i].addEventListener('click', sendMessage, false)
           }
 
-          
+          // remove click handler and add one to close conversation
+          closeConvoClickHandler = function() {
+            // close conversation connection
+            convoSubs[username].unsubscribe()
 
+            // delete conversation node
+            document.querySelector(`#${username}`).remove()
 
+            // add open convo event listner back onto button
+            this.addEventListener('click', openConvoClickHandler)
+          }
+
+          this.removeEventListener('click', openConvoClickHandler)
+          this.addEventListener('click', closeConvoClickHandler)
 
           // End of click on start convo ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         }

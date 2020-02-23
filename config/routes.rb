@@ -16,7 +16,7 @@ Rails.application.routes.draw do
     resources :posts
   end
 
-  get 'conversation', to: 'conversations#show'
+  get 'conversation/:id', to: 'conversations#show'
   post 'message', to: 'messages#create'
 
   resources :posts

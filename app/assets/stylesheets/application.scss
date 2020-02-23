@@ -213,6 +213,14 @@ body {
   flex-direction: row-reverse;
 }
 
+.conversations_container {
+  position: relative;
+  bottom: 0px;
+  float: right;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
 .start-chat-container, .conversation-container {
   position: relative;
   bottom: 0px;
