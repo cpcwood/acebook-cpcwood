@@ -15,7 +15,7 @@ gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # boostrap to help....with the CSS
-gem 'bootstrap-sass', '~> 3.3.6'
+gem 'bootstrap-sass', '~> 3.4.1'
 # Lets use jQuery!!!!
 gem 'jquery-rails'
 gem 'sassc-rails'
