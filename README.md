@@ -35,7 +35,9 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Additional Resources 
 
-How it was made - https://medium.com/@thomas.w.walker/dosdosdesperadosdynamicos-acebook-not-a-copy-of-facebook-honest-f9e53b543aee
+Try The Current Build on Heroku - https://dosdosdesperadosdynamicos.herokuapp.com/
+
+How it was made - https://medium.com/@TWWalker/dosdosdesperadosdynamicos-acebook-not-a-copy-of-facebook-honest-f9e53b543aee
 
 Github Repo - https://github.com/cpcwood/acebook-dosdosdesperadosdynamicos
 
