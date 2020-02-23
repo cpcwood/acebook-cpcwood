@@ -205,12 +205,13 @@ body {
   }
 }
 
-.chat-footer-container {
+.chat_footer_container {
   position: fixed;
   right: 0;
   bottom: 0;
   display: flex;
   flex-direction: row-reverse;
+  z-index: 1;
 }
 
 .conversations_container {
@@ -221,7 +222,7 @@ body {
   flex-direction: row-reverse;
 }
 
-.start-chat-container, .conversation-container {
+.start_chat_container, .conversation_container {
   position: relative;
   bottom: 0px;
   float: right;
@@ -230,11 +231,11 @@ body {
   width: 200px;
 }
 
-.start-chat-container {
+.start_chat_container {
   overflow: scroll;
 }
 
-.open-chat, .open-convo-btn {
+.open_chat, .open_convo_button, .close_convo_button {
   width: 200px;
 }
 
@@ -245,13 +246,13 @@ body {
   border: black;
 }
 
-.actions-container {
+.actions_container {
   display: flex;
   flex-direction: row;
   height: 50px;
 }
 
-.messages-container {
+.messages_container {
   min-height: 250px;
   min-width: 200px;
   background: lightgrey;
@@ -266,7 +267,7 @@ body {
   margin-bottom: 4px;;
 }
 
-.message-time {
+.message_time {
   font-size: smaller;
 }
 
@@ -274,19 +275,19 @@ body {
 
 // }
 
-.message-sent {
+.message_sent {
   background-color: cornflowerblue;
   width: 70%;
   float: left;
 }
 
-.message-recieved {
+.message_recieved {
   background-color: lightgreen;
   width: 70%;
   float: right;
 }
 
-.no-message {
+.no_message {
   position: relative;
   width: 100%;
   text-align: center;
