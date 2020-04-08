@@ -2,14 +2,14 @@
   <h1 align="center">Wookiebook</h1>
 
   <p align="center">
-    A place for the more hairy individuals of Kashyyyk to share
+    A place for the hairy individuals of Kashyyyk to share
     <br />
   </p>
 </p>
 
 ## Overview
 
-A Starwars themed Facebook clone with instant messaging functionality. Users can sign up, select a home planet, and then post messages on their own and other users walls. 
+A Star Wars themed Facebook clone with instant messaging functionality. Users can sign up, select a home planet, and then post messages on their own and other users walls. 
 
 This project was originally a Makers Academy group project, which has since been exported and modifed by myself. To see the original repository, please click [here](https://github.com/cpcwood/acebook-dosdosdesperadosdynamicos).
 
