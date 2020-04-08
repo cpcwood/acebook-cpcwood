@@ -9,11 +9,11 @@ default: &default
 
 development:
   <<: *default
-  database: <%= Rails.application.credentials[Rails.env.to_sym][:psql][:dbname] %>
+  database: <%= Rails.application.credentials[Rails.env.to_sym][:psql][:dbname_development] %>
 
 test:
   <<: *default
-  database: <%= Rails.application.credentials[Rails.env.to_sym][:psql][:dbname] %>
+  database: <%= Rails.application.credentials[Rails.env.to_sym][:psql][:dbname_test] %>
 
 production:
   <<: *default
