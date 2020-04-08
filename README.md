@@ -36,7 +36,7 @@ For the chat functionality to work, the message broker 'redis' is used. Please e
 
 Since the application requires persistent data, such as users, a PSQL database is used in conjunction with ApplicationRecord. To set the database up, first ensure you have PSQL installed and running as a service. Then create the revelant rails credentials for each environment (development, test, and production) as shown below:
 - Fill in the template for the global credientals, which be found in ```config/credentials.yml.enc.template```
-- Open the rails credentials in your editor of choice ```EDITOR=vim rails credentials:edit``` (if this if your first time opening the credentials, a new rails master key ```config/master.key``` to encrypt the credentials will be generated, do not check this into your version control)
+- Open the rails credentials in your editor of choice ```EDITOR=vim rails credentials:edit``` (if this if your first time opening the credentials, delete the original ```config/credentials.yml.enc``` and then a new rails master key ```config/master.key``` to encrypt the credentials will be generated, do not check this into your version control)
 - Add the filled template to the credentials list, then save and exit
 
 To setup the development and test database tables with the correct schema run the following in the command line:
