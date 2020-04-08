@@ -27,12 +27,20 @@
 
 # Ignore coverage documentation
 coverage/*
-coverage/**
 
 # Ignore complied front-end assets
 public/*
-public/**
 
 # Ignore local storage
 storage/*
-storage/**
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key
+
+# Puma shared files
+shared/log/*
+!shared/log/.keep
+shared/pids/*
+!shared/pids/.keep
+shared/sockets/*
+!shared/sockets/.keep

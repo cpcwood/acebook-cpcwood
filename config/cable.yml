@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: <%= ENV["REDIS_URL"] %>
+  url: <%= Rails.application.credentials[Rails.env.to_sym][:redis][:url] %>
   channel_prefix: acebook_production
