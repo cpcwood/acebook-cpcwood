@@ -23,8 +23,6 @@ SimpleCov.start 'rails' do
 end
 
 RSpec.configure do |config|
-  # rspec-expectations config goes here.
-
   config.before(:all) do
     User.create(id: 0, email: '.', password: '.', planet: 'Galaxy').save(validate: false)
   end
@@ -39,7 +37,7 @@ RSpec.configure do |config|
   end
 
   config.after(:all) do
-    User.destroy(0)
+    User.destroy_all
   end
 
   config.expect_with :rspec do |expectations|
@@ -52,11 +50,6 @@ RSpec.configure do |config|
   end
 
   config.shared_context_metadata_behavior = :apply_to_host_groups
-
-  # if config.files_to_run.one?
-  #   # Use the documentation formatter for detailed output,
-  #   config.default_formatter = 'doc'
-  # end
 
   # Use color not only in STDOUT but also in pagers and files
   config.tty = true
