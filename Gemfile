@@ -13,7 +13,7 @@ gem 'rails', '~> 5.2.4.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 3.12'
+gem 'puma', '~> 4.3'
 # boostrap to help....with the CSS
 gem 'bootstrap-sass', '~> 3.4.1'
 # Lets use jQuery!!!!
